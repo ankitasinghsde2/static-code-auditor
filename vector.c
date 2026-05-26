@@ -29,14 +29,20 @@ void vector_push(struct vector *v, const char *item)
         }
         v->ptr = temp;
     } 
-    v -> ptr[v -> size] = item;
+    v -> ptr[v -> size] = (char *)malloc((strlen(item) + 1) * sizeof(char));
+    if (v->ptr[v->size] == NULL) {
+        perror("Token space allocation failed");
+        exit(EXIT_FAILURE);
+    }
+
+    strcpy(v->ptr[v->size], item);
     v -> size = (v -> size) + 1;
 }
 
 char * vector_get(struct vector *v, size_t index)
 {
     if(v == NULL || index >= v -> size) return NULL;
-    else return v->ptr[index];
+    return v->ptr[index];
 }
 
 void vector_free(struct vector *v)
@@ -44,7 +50,10 @@ void vector_free(struct vector *v)
     if(v == NULL) return;
     for(int i = 0; i < v->size; i += 1)
     {
-        free(v->ptr[i]);
+        if (v->ptr[i] != NULL) 
+        {
+            free(v->ptr[i]);
+        }
     }
     if(v -> ptr != NULL) free(v -> ptr);
     v -> ptr = NULL;
