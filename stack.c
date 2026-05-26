@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "vector.h"
+#include "stack.h"
 
 void stack_init(struct stack *s)
 {
@@ -8,7 +9,7 @@ void stack_init(struct stack *s)
     vector_init(&(s -> vec));
 }
 
-void stack_push(struct stack *s, char *item)
+void stack_push(struct stack *s, const char *item)
 {
     if(s == NULL || item == NULL) return;
 
@@ -23,7 +24,7 @@ char *stack_pop(struct stack *s)
         return NULL;
     }
 
-    int index = ((s->vec).size) - 1;
+    int top_index = ((s->vec).size) - 1;
 
     char *top_item = vector_get(&(s -> vec), top_index);
 

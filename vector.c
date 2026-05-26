@@ -1,6 +1,8 @@
 #include "vector.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+#include "stack.h"
 
 void vector_init(struct vector *v)
 {
